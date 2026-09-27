@@ -31,6 +31,9 @@ for folder,name in [('bootstrap','RebornUpdateBootstrap'),('launcher','RebornApp
     shutil.copy2(pathlib.Path(active['directory'])/name,pathlib.Path('native')/folder/name)
 PY
 cd source
+mkdir -p ../build-tools
+npm install --prefix ../build-tools --no-save --no-package-lock --no-audit --no-fund node@22.23.2
+export PATH="$(cd ../build-tools/node_modules/node/bin && pwd):$PATH"
 npm ci --ignore-scripts --no-audit --no-fund
 node scripts/build-release.cjs linux-x64 ../native
 node --check desktop.cjs
@@ -46,7 +49,7 @@ PY
 tar -czf ../linux-payload.tar.gz -C release-staging/{VERSION}/linux-x64 .
 '@
 $build=$build.Replace('{REMOTE}',$remote).Replace('{VERSION}',$Version).Replace('{COMMIT}',$commit)
-$build | & ssh $HostName 'bash -s'
+$build | & ssh $HostName "tr -d '\r' | bash"
 if($LASTEXITCODE -ne 0){throw 'Native Linux build failed'}
 & scp "${HostName}:$remote/linux-payload.tar.gz" $archive
 if($LASTEXITCODE -ne 0){throw 'Linux payload transfer failed'}

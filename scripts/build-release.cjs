@@ -35,6 +35,11 @@ async function main() {
     fs.writeFileSync(path.join(output,'reborn-it.sh'),fs.readFileSync(path.join(root,'scripts','reborn-it.sh'),'utf8').replace(/\r\n/g,'\n'),{mode:0o755});
     for (const name of ['reborn-it.sh','RebornUpdateBootstrap','RebornAppLauncher']) fs.chmodSync(path.join(output,name),0o755);
   }
+  if (windows) {
+    const revision=spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'});
+    if(revision.status!==0) throw Error('Cannot record release source revision');
+    fs.writeFileSync(path.join(output,'build-provenance.json'),JSON.stringify({sourceCommit:revision.stdout.trim(),version:pkg.version,rid,buildOS:'Windows',architecture:process.arch,node:process.version},null,2));
+  }
   console.log(output);
 }
 main().catch(error=>{console.error(error.message);process.exitCode=1;});
