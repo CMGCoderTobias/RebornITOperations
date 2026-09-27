@@ -1,0 +1,5 @@
+{
+  "agentManifestUrl": "https://kosradio.com/security/v1/updates/rebornupdateagent/manifest",
+  "agentPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBqTJ2HDDwvlPe0e8E8gPgBbE7psK\nm7SvLoaQyEPXRmiErDoP/GHxU9w6FIqN3hCVYeaEBOcQzGsYeupppijz5A==\n-----END PUBLIC KEY-----\n",
+  "schema": 1
+}

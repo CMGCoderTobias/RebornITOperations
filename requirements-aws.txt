@@ -1,0 +1,2 @@
+# Optional AWS integration dependency. Core inventory works without this package.
+boto3>=1.36,<2

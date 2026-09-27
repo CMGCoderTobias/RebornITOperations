@@ -1,0 +1,15 @@
+{
+  "name": "reborn-it-operations",
+  "productName": "Reborn IT Operations",
+  "version": "0.2.1",
+  "private": true,
+  "description": "Personal infrastructure inventory with optional automation",
+  "main": "desktop.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "python -m unittest discover -s tests -v",
+    "check": "node --check desktop.cjs && node --check web/app.js",
+    "package": "node scripts/package.cjs"
+  },
+  "devDependencies": {"electron": "44.4.5"}
+}

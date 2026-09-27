@@ -1,0 +1,13 @@
+{
+  "installRoot": "",
+  "schema": 1,
+  "installOnNextLaunch": true,
+  "executable": "RebornITOperations.exe",
+  "manifestUrl": "https://kosradio.com/security/v1/updates/rebornitoperations/manifest",
+  "appId": "rebornitoperations",
+  "channel": "stable",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBqTJ2HDDwvlPe0e8E8gPgBbE7psK\nm7SvLoaQyEPXRmiErDoP/GHxU9w6FIqN3hCVYeaEBOcQzGsYeupppijz5A==\n-----END PUBLIC KEY-----\n",
+  "currentVersion": "0.2.1",
+  "displayName": "Reborn IT Operations",
+  "autoDownload": true
+}

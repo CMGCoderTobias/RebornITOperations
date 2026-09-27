@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Reborn · IT Operations</title><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script><script src="/automation-ui.js" defer></script><script src="/aws-ui.js" defer></script></head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#dashboard"><span class="brand-mark">R</span><span>REBORN<small>IT OPERATIONS</small></span></a>
+    <div class="workspace"><span class="live-dot"></span> Personal environment <small>LOCAL WORKSPACE</small></div>
+    <div class="nav-label">CONTROL CENTER</div>
+    <nav aria-label="Main navigation">
+      <a href="#dashboard" data-nav="dashboard"><span>◫</span> Overview</a>
+      <a href="#inventory" data-nav="inventory"><span>▦</span> Asset inventory <b id="nav-count">0</b></a>
+      <a href="#review" data-nav="review"><span>◎</span> Needs review <b id="review-count">0</b></a>
+      <a href="#maintenance" data-nav="maintenance"><span>◇</span> Maintenance</a>
+      <a href="#backups" data-nav="backups"><span>▤</span> Backups & recovery</a>
+      <a href="#costs" data-nav="costs"><span>＄</span> Financials</a>
+    </nav>
+    <nav aria-label="Automation navigation"><a href="#automations" data-nav="automations"><span>↻</span> Automation connections</a></nav><nav><a href="#aws" data-nav="aws"><span>☁</span> AWS connection</a></nav><div class="nav-label second">WORKSPACE</div>
+    <nav aria-label="Workspace navigation"><a href="#settings" data-nav="settings"><span>⚙</span> Data & settings</a></nav>
+    <div class="sidebar-bottom"><span class="live-dot"></span> Local storage<small>Your inventory. On your machine.</small><span class="version">REBORN / v0.2.0</span></div>
+  </aside>
+  <div class="shell">
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <b id="crumb">Overview</b></div><label class="global-search"><span>⌕</span><input id="global-search" type="search" aria-label="Search entire inventory" placeholder="Search assets, dependencies, maintenance…"><kbd>/</kbd></label><span class="local-badge"><span class="live-dot"></span> Local only</span></header>
+    <main id="main"><div class="empty">Opening your inventory…</div></main>
+    <footer>REBORN IT OPERATIONS <span>Inventory first. Nothing forgotten.</span></footer>
+  </div>
+  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body></html>
