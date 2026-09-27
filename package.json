@@ -1,7 +1,7 @@
 {
   "name": "reborn-it-operations",
   "productName": "Reborn IT Operations",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "description": "Personal infrastructure inventory with optional automation",
   "main": "desktop.cjs",

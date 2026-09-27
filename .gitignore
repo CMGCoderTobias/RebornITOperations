@@ -27,3 +27,6 @@
 **/*.sqlite3
 **/*.pem
 **/*.log
+
+!/.gitattributes
+!/scripts/Build-LinuxRelease.ps1
