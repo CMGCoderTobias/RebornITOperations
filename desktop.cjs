@@ -36,10 +36,11 @@ app.setAppUserModelId('com.reborn.itoperations');
 app.setPath('userData', path.join(dataDir, 'desktop-profile'));
 const hasLock = app.requestSingleInstanceLock();
 if (!hasLock) app.quit();
+else if (process.argv.includes('--quit')) app.quit();
 else {
-  app.on('second-instance', () => showWindow());
+  app.on('second-instance', (_event, argv) => argv.includes('--quit') ? app.quit() : showWindow());
   app.on('activate', () => showWindow());
-  app.on('window-all-closed', () => {});
+  app.on('window-all-closed', () => app.quit());
   app.on('before-quit', () => { quitting = true; });
   app.whenReady().then(start).catch(fail);
 }
@@ -87,14 +88,18 @@ async function start() {
   session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
     callback({cancel: !(details.url === appUrl || details.url.startsWith(appUrl + '/') || details.url.startsWith('devtools://'))});
   });
-  win = new BrowserWindow({width:1390,height:900,minWidth:760,minHeight:560,title:'Reborn IT Operations',icon,show:false,backgroundColor:'#f5f7f8',webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,devTools:!app.isPackaged}});
+  win = new BrowserWindow({width:1390,height:900,minWidth:760,minHeight:560,title:'Reborn IT Operations',icon,show:false,backgroundColor:'#f5f7f8',webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,preload:path.join(root,'preload.cjs'),additionalArguments:['--reborn-client-version='+version],devTools:!app.isPackaged}});
   log('Desktop window created');
   win.webContents.setWindowOpenHandler(() => ({action:'deny'}));
   win.webContents.on('will-navigate', (event, url) => { if (!(url === appUrl+'/' || url.startsWith(appUrl+'/#'))) event.preventDefault(); });
-  win.on('close', event => { if (!quitting && tray) { event.preventDefault(); win.hide(); } });
   const show = () => showWindow();
   const openData = () => shell.openPath(dataDir);
   const quit = () => app.quit();
+  win.webContents.on('context-menu', (_event, params) => {
+    const items = params.isEditable ? [{role:'undo'},{role:'redo'},{type:'separator'},{role:'cut'},{role:'copy'},{role:'paste'},{role:'selectAll'}] : [{role:'copy',enabled:Boolean(params.selectionText)},{role:'selectAll'}];
+    Menu.buildFromTemplate([...items,{type:'separator'},{label:'Quit Reborn IT Operations',click:quit}]).popup({window:win});
+  });
+  if(process.platform==='win32') app.setUserTasks([{program:process.execPath,arguments:'--quit',title:'Quit Reborn IT Operations',description:'Close the desktop client; monitoring continues on the backend.'}]);
   tray = new Tray(icon.resize({width:32,height:32}));
   tray.setToolTip('Reborn IT Operations — independent backend');
   tray.setContextMenu(Menu.buildFromTemplate([{label:'Open Reborn IT Operations',click:show},{label:'Open data folder',click:openData},{type:'separator'},{label:'Quit desktop app',click:quit}]));

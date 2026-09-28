@@ -22,7 +22,7 @@ const input = (key,label,value='',type='text',hint='',wide=false) => `<label cla
 const textarea = (key,label,value='',hint='') => `<label class="field wide">${esc(label)}<textarea name="${esc(key)}" rows="3">${esc(value)}</textarea>${hint?`<span class="hint">${esc(hint)}</span>`:''}</label>`;
 const select = (key,label,values,value='',first=null) => `<label class="field">${esc(label)}<select name="${key}">${options(values,value,first)}</select></label>`;
 function notify(message){ clearTimeout(toastTimer);$('#toast').textContent=message;$('#toast').classList.add('show');toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),5000); }
-async function load(){const response=await fetch('/api/state');if(!response.ok)throw Error('Could not read the local inventory.');state=await response.json();}
+async function load(){const response=await fetch('/api/state');if(!response.ok)throw Error('Could not read the shared inventory.');state=await response.json();const label=$('.version');if(label)label.textContent=window.rebornDesktop?.version?'REBORN / v'+window.rebornDesktop.version:'REBORN WEB / v'+state.version;}
 async function api(path,body){const response=await fetch('/api/'+path,{method:'POST',headers:{'Content-Type':'application/json','X-Reborn-Token':state.token},body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw Error(data.error || 'Could not save.');return data;}
 async function changed(message){await load();render();notify(message);}
 function heading(eyebrow,name,description,actions=''){return `<div class="page-head"><div><div class="eyebrow">${esc(eyebrow)}</div><h1>${esc(name)}</h1><p class="subtitle">${esc(description)}</p></div><div class="actions">${actions}</div></div>`;}

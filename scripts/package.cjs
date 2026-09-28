@@ -9,7 +9,7 @@ fs.cpSync(runtime,output,{recursive:true});
 fs.copyFileSync(path.join(output,'electron.exe'),path.join(output,'RebornITOperations.exe'));
 const app = path.join(output,'resources','app');
 fs.mkdirSync(app,{recursive:true});
-for(const name of ['desktop.cjs','assets']) fs.cpSync(path.join(root,name),path.join(app,name),{recursive:true});
+for(const name of ['desktop.cjs','preload.cjs','assets']) fs.cpSync(path.join(root,name),path.join(app,name),{recursive:true});
 const pkg = require('../package.json');
 fs.writeFileSync(path.join(app,'package.json'),JSON.stringify({name:pkg.name,productName:pkg.productName,version:pkg.version,main:pkg.main},null,2));
 console.log('Created desktop/RebornITOperations.exe. Inventory remains in data/.');

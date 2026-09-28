@@ -21,7 +21,7 @@ async function main() {
   if (windows) fs.renameSync(path.join(output,'electron.exe'),path.join(output,'RebornITOperations.exe'));
   const application = path.join(output,'resources','app');
   fs.mkdirSync(application,{recursive:true});
-  for (const name of ['desktop.cjs','assets']) fs.cpSync(path.join(root,name),path.join(application,name),{recursive:true});
+  for (const name of ['desktop.cjs','preload.cjs','assets']) fs.cpSync(path.join(root,name),path.join(application,name),{recursive:true});
   fs.writeFileSync(path.join(application,'package.json'),JSON.stringify({name:pkg.name,productName:pkg.productName,version:pkg.version,main:pkg.main}));
   const suffix=windows?'.exe':'';
   for (const [folder,name] of [['bootstrap','RebornUpdateBootstrap'],['launcher','RebornAppLauncher']]) fs.copyFileSync(path.join(updaterArtifacts,folder,name+suffix),path.join(output,name+suffix));

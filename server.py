@@ -19,7 +19,7 @@ from aws_inventory import AWSConnection
 from watchdog_inventory import WatchdogInventory
 
 ROOT = Path(__file__).resolve().parent
-VERSION = '0.2.0'
+VERSION = json.loads((ROOT / 'package.json').read_text(encoding='utf-8'))['version']
 
 
 class ConflictError(ValueError):
